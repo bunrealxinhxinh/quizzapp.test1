@@ -1,7 +1,9 @@
 package com.ltdd.quiz;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -111,6 +113,7 @@ public class De_So_1 extends AppCompatActivity {
                             Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
                             return;
                         }
+                        Log.d("test", "test" + radioGroup.getCheckedRadioButtonId());
                     }
                     else if(i==10){
                         if(answer[flag].equals(ansText)){
