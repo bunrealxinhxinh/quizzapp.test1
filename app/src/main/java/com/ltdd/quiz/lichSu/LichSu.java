@@ -25,7 +25,6 @@ public class LichSu extends AppCompatActivity {
 
     ListView listView;
     Context context;
-    Button goback;
     ArrayList<ItemLichSu> arrayList;
     LichSuAdapter lichSuAdapter;
 
@@ -39,7 +38,6 @@ public class LichSu extends AppCompatActivity {
         setContentView(R.layout.lich_su_thi);
         context = this;
         listView = (ListView) findViewById(R.id.lvLichSu);
-        goback = (Button) findViewById(R.id.goBack);
         arrayList = new ArrayList<>();
         lichSuAdapter = new LichSuAdapter(this,arrayList,R.layout.item_lich_su);
         listView.setAdapter(lichSuAdapter);
@@ -53,14 +51,6 @@ public class LichSu extends AppCompatActivity {
         String correct = "Số câu đúng : " + a;
         String wrong = "Số câu sai : " + b;
         String marks = "Tổng Số Câu : " + c;
-
-        goback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LichSu.this, MainActivity.class));
-                finish();
-            }
-        });
 
         Boolean insert = db.insertDataStory(de,correct,wrong,marks);
         if(insert == true)

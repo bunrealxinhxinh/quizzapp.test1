@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class LichSuMau extends AppCompatActivity {
     ListView listView;
     Context context;
-    Button goback;
     ArrayList<ItemLichSu> arrayList;
     LichSuAdapter lichSuAdapter;
     DBHelper db;
@@ -32,19 +31,9 @@ public class LichSuMau extends AppCompatActivity {
         db = new DBHelper(this);
         context = this;
         listView = (ListView) findViewById(R.id.lvLichSu);
-        goback = (Button) findViewById(R.id.goBack);
         arrayList = new ArrayList<>();
         lichSuAdapter = new LichSuAdapter(this,arrayList,R.layout.item_lich_su);
         listView.setAdapter(lichSuAdapter);
-
-        goback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LichSuMau.this, MainActivity.class));
-                finish();
-            }
-        });
-
 
         Cursor cursor = db.getData("select * from story");
         while (cursor.moveToNext()){

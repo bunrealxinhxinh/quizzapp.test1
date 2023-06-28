@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DBNAME = "thangga.db";
+    public static final String DBNAME = "quizz.db";
 
     public DBHelper(Context context) {
         super(context,DBNAME,null,1);
@@ -50,31 +50,6 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
-    }
-    public Boolean checkUserName(String username){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from users where username = ?",new String[] {username});
-        if(cursor.getCount()>0)
-            return true;
-        else
-            return false;
-    }
-    public Boolean checkUserNamePassword(String username, String password){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from users where username = ? and password = ?",new String[] {username, password});
-        if(cursor.getCount()>0)
-            return true;
-        else
-            return false;
-    }
-    public String getName(String username, String password){
-        String ten = "utwrthtrh";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor dataName = db.rawQuery("select name from users where username = ? and password = ?", new String[] {username,password});
-        while(dataName.moveToNext()){
-             ten = dataName.getString(0);
-        }
-        return ten;
     }
     public void queryData(String sql){
         SQLiteDatabase dtb = getWritableDatabase();

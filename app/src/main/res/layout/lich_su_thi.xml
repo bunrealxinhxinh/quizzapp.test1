@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_700"
     android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/layout1"
@@ -29,16 +30,6 @@
             android:textColor="@color/white"
             android:textSize="18dp" />
     </RelativeLayout>
-
-
-    <Button
-        android:id="@+id/goBack"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/duong_vien_bo_goc"
-        android:text="go back"
-        android:textSize="15dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

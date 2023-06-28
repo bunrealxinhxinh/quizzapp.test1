@@ -17,7 +17,7 @@ public class De_So_1 extends AppCompatActivity {
     TextView stt,noiDung;
     RadioGroup radioGroup;
     RadioButton r1,r2,r3,r4;
-    Button click;
+    Button click, click2;
     int i = 1, n = 0;
     public static int flag = 0, correct = 0, wrong = 0;
     static final String question[] = {
@@ -76,6 +76,7 @@ public class De_So_1 extends AppCompatActivity {
         r3 = (RadioButton) findViewById(R.id.rd3);
         r4 = (RadioButton) findViewById(R.id.rd4);
         click = (Button) findViewById(R.id.click);
+        click2 = (Button) findViewById(R.id.click2);
 
         stt.setText("Câu Hỏi Thứ " + i);
         noiDung.setText(question[flag]);
@@ -143,6 +144,39 @@ public class De_So_1 extends AppCompatActivity {
 
             }
         });
+
+        click2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton uans = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+                String ansText = uans.getText().toString();
+
+                if(i>=1){
+                    if(i>1){
+                        if(answer[flag].equals(ansText)){
+                            correct++;
+                        }
+                        else
+                            wrong++;
+                        n-=4;
+                        flag-=1;
+                        stt.setText("Câu Hỏi Thứ " + (i-=1));
+                        noiDung.setText(question[flag]);
+                        r1.setText(option[n]);
+                        r2.setText(option[n+1]);
+                        r3.setText(option[n+2]);
+                        r4.setText(option[n+3]);
+                        if(radioGroup.getCheckedRadioButtonId()== -1){
+                            Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Log.d("test", "test" + radioGroup.getCheckedRadioButtonId());
+                    }
+                }
+
+            }
+        });
+
     }
     }
 
