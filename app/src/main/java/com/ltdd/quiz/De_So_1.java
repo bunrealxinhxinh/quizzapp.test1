@@ -115,6 +115,20 @@ public class De_So_1 extends AppCompatActivity {
                             return;
                         }
                         Log.d("test", "test" + radioGroup.getCheckedRadioButtonId());
+                        int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+                        Log.e("radio id:",selectedRadioButtonId+"");
+                        RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
+                        String selectedValue = selectedRadioButton.getText().toString();
+                        Log.e("value:",selectedValue);
+
+                        DBHelper dbHelper = new DBHelper(De_So_1.this);
+                        boolean isInserted = dbHelper.insertDataChecked(selectedValue);
+                        if (isInserted) {
+                            Log.e("value inserted:",selectedValue);
+                            Toast.makeText(De_So_1.this, "Selected value inserted into resultchecked table", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(De_So_1.this, "Failed to insert selected value", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     else if(i==10){
                         if(answer[flag].equals(ansText)){
@@ -178,5 +192,4 @@ public class De_So_1 extends AppCompatActivity {
         });
 
     }
-    }
-
+}

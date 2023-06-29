@@ -13,6 +13,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,25 +35,30 @@
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_height="197dp">
 
             <RadioButton
                 android:id="@+id/rd1"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/rd2"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/rd3"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <RadioButton
                 android:id="@+id/rd4"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </RadioGroup>
@@ -64,9 +70,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginBottom="1dp"
         android:gravity="left"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

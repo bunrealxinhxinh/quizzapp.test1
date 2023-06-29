@@ -5,51 +5,25 @@
     android:layout_width="match_parent"
     android:background="@color/teal_700"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#166564"
-        tools:ignore="MissingConstraints">
-        <ImageView
-            android:id="@+id/ic_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/ic_back"
-            android:backgroundTint="@color/white" />
-        <TextView
-            android:id="@+id/ic_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:text="Exit"
-            android:textColor="@color/white"
-            android:textSize="18dp" />
-    </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="78dp"
         android:layout_height="55dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.006"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout1"
-        app:srcCompat="@drawable/ebook" />
+        app:srcCompat="@drawable/ebook"
+        tools:layout_editor_absoluteY="34dp" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Đề Số 1"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/layout1"/>
+        tools:layout_editor_absoluteY="55dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
