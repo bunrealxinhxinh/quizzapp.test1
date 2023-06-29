@@ -3,20 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/teal_700"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/teal_700">
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        tools:ignore="MissingConstraints">
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/sai"
         android:layout_width="60dp"
         android:layout_height="34dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="280dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dung"
-        app:srcCompat="@drawable/multiply"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/layout1"
+        app:srcCompat="@drawable/multiply" />
 
     <TextView
         android:id="@+id/socausai"
@@ -35,13 +41,12 @@
         android:id="@+id/dung"
         android:layout_width="60dp"
         android:layout_height="34dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="184dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        app:srcCompat="@drawable/accept"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/layout1"
+        app:srcCompat="@drawable/accept" />
 
     <TextView
         android:id="@+id/tongsocau"
@@ -76,7 +81,7 @@
         android:text="textVIew"
         android:textSize="35dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text"  />
+        app:layout_constraintTop_toBottomOf="@+id/text" />
 
     <Button
         android:id="@+id/main"
@@ -97,6 +102,7 @@
         android:text="Lưu bài kiểm tra"
         app:layout_constraintEnd_toStartOf="@+id/main"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btnShowChecked"
         android:layout_width="wrap_content"
@@ -106,5 +112,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
