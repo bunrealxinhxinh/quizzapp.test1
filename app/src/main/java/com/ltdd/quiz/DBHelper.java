@@ -18,27 +18,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table if not exists users(username text primary key, password text,name text)");
         db.execSQL("create table if not exists story(id Integer primary key autoincrement ,tenDe text, cauDung text, cauSai text, tongCau text )");
         db.execSQL("create table if not exists resultchecked(id Integer primary key autoincrement, lanthi INTEGER, dapanchon text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("drop table if exists users");
         db.execSQL("drop table if exists story");
         db.execSQL("drop table if exists resultchecked");
         onCreate(db);
-    }
-
-    public Boolean insertData(String username, String password, String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("username", username);
-        values.put("password", password);
-        values.put("name", name);
-        long result = db.insert("users", null, values);
-        return result != -1;
     }
 
     public Boolean insertDataChecked(String cauchon) {
