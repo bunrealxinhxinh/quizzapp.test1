@@ -14,7 +14,9 @@ import com.ltdd.quiz.lichSu.LichSu;
 
 public class Ket_Qua_Sau_Thi extends AppCompatActivity {
     TextView caudung, causai, tongcau;
-    Button btnMain, btnSave;
+
+    Button btnMain, btnSave, btnShowChecked;
+
     String a;
     DBHelper db;
     @Override
@@ -27,6 +29,8 @@ public class Ket_Qua_Sau_Thi extends AppCompatActivity {
         tongcau = (TextView) findViewById(R.id.tongsocau);
         btnMain = (Button) findViewById(R.id.main);
         btnSave = (Button) findViewById(R.id.save);
+        btnShowChecked = (Button) findViewById(R.id.btnShowChecked);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         int correct =bundle.getInt("correct");
@@ -49,6 +53,16 @@ public class Ket_Qua_Sau_Thi extends AppCompatActivity {
                 bundle.putInt("marks",marks);
                 intent.putExtras(bundle);
 
+                startActivity(intent);
+            }
+        });
+
+        btnShowChecked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Ket_Qua_Sau_Thi.this, ShowChecked.class);
+                // Pass necessary data to the ShowChecked activity
+                intent.putExtra("de", a);
                 startActivity(intent);
             }
         });
