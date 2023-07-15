@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -24,7 +25,8 @@ public class Danh_Sach_De_Thi extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.thitracnghiem);
-
+        TextView ic_exit;
+        ic_exit = findViewById(R.id.ic_exit);
         listView = (ListView) findViewById(R.id.thitracnghiem);
 
         deThiArrayList = new ArrayList<>();
@@ -34,6 +36,14 @@ public class Danh_Sach_De_Thi extends AppCompatActivity {
         adapterDeThi = new Adapter_De_Thi(this,deThiArrayList,R.layout.item_thi);
         listView.setAdapter(adapterDeThi);
 
+        ic_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Danh_Sach_De_Thi.this, function.class);
+                startActivity(intent);
+
+            }
+        });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

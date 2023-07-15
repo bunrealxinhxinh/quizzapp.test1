@@ -3,61 +3,80 @@ package com.ltdd.quiz;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DBNAME = "quizz.db";
+    public static final String DBNAME = "quizzpractice.db";
 
     public DBHelper(Context context) {
-        super(context,DBNAME,null,1);
+        super(context, DBNAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-    db.execSQL("create table if not exists users(username text primary key, password text,name text)");
-    db.execSQL("create table if not exists story(id Integer primary key autoincrement ,tenDe text, cauDung text, cauSai text, tongCau text )");
+        db.execSQL("create table if not exists users(username text primary key, password text,name text)");
+        db.execSQL("create table if not exists story(id Integer primary key autoincrement ,tenDe text, cauDung text, cauSai text, tongCau text )");
+        db.execSQL("create table if not exists resultchecked(id Integer primary key autoincrement,cauhoi text, lanthi INTEGER, dapanchon text)");
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-    db.execSQL("drop table if exists users");
-    db.execSQL("drop table if exists story");
-    onCreate(db);
+        db.execSQL("drop table if exists users");
+        db.execSQL("drop table if exists story");
+        db.execSQL("drop table if exists resultchecked");
+        onCreate(db);
     }
-    public Boolean insertData(String username, String password, String name){
+
+    public Boolean insertData(String username, String password, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("username",username);
-        values.put("password",password);
-        values.put("name",name);
-        long result = db.insert("users",null,values);
-        if(result == -1)
-            return false;
-        else
-            return true;
+        values.put("username", username);
+        values.put("password", password);
+        values.put("name", name);
+        long result = db.insert("users", null, values);
+        return result != -1;
     }
-    public Boolean insertDataStory( String tenDe, String cauDung, String cauSai, String tongCau){
+
+    public Boolean insertDataChecked(String answer, String question) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("tenDe",tenDe);
-        values.put("cauDung",cauDung);
-        values.put("cauSai",cauSai);
-        values.put("tongCau",tongCau);
-        long result = db.insert(" story",null,values);
-        if(result == -1)
-            return false;
-        else
-            return true;
+        values.put("dapanchon", answer);
+        values.put("cauhoi", question);
+        long result = db.insert("resultchecked", null, values);
+        return result != -1;
     }
-    public void queryData(String sql){
-        SQLiteDatabase dtb = getWritableDatabase();
-        dtb.execSQL(sql);
-        onCreate(dtb);
+
+    public Boolean insertDataStory(String tenDe, String cauDung, String cauSai, String tongCau) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("tenDe", tenDe);
+        values.put("cauDung", cauDung);
+        values.put("cauSai", cauSai);
+        values.put("tongCau", tongCau);
+        long result = db.insert("story", null, values);
+        return result != -1;
     }
-    public Cursor getData(String sql){
-        SQLiteDatabase dtb = getReadableDatabase();
-        return dtb.rawQuery(sql,null);
+
+    public void queryData(String sql) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(sql);
+        onCreate(db);
+    }
+
+    public Cursor getData(String sql) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery(sql, null);
+    }
+
+    public Cursor getResultCheckedData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {"id", "lanthi", "dapanchon"};
+
+        Cursor cursor = db.query("resultchecked", columns, null, null, null, null, null);
+        return cursor;
     }
 }

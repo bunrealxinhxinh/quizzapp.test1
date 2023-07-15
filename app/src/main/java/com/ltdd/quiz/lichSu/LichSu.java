@@ -6,18 +6,22 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ltdd.quiz.DBHelper;
+import com.ltdd.quiz.Danh_Sach_De_Thi;
 import com.ltdd.quiz.Ket_Qua_Sau_Thi;
 import com.ltdd.quiz.MainActivity;
 import com.ltdd.quiz.R;
+import com.ltdd.quiz.function;
 
 import java.util.ArrayList;
 
@@ -37,10 +41,20 @@ public class LichSu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lich_su_thi);
         context = this;
+        TextView icon_exit;
         listView = (ListView) findViewById(R.id.lvLichSu);
+        icon_exit=(TextView) findViewById(R.id.ic_exit);
         arrayList = new ArrayList<>();
         lichSuAdapter = new LichSuAdapter(this,arrayList,R.layout.item_lich_su);
         listView.setAdapter(lichSuAdapter);
+        icon_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LichSu.this, function.class);
+                startActivity(intent);
+
+            }
+        });
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String de = bundle.getString("de");
