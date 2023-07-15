@@ -5,13 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/teal_700"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        tools:ignore="MissingConstraints">
 
-    </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView6"
@@ -21,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout1"
-        app:srcCompat="@drawable/ebook" />
+        app:srcCompat="@drawable/ebook"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView11"
@@ -34,5 +28,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/layout1"/>
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

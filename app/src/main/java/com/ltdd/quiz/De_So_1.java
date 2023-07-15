@@ -1,7 +1,6 @@
 package com.ltdd.quiz;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,13 +12,26 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ltdd.quiz.lichSu.Result;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
 public class De_So_1 extends AppCompatActivity {
-    TextView stt,noiDung;
+    TextView stt,noiDung, txtTimer;
     RadioGroup radioGroup;
     RadioButton r1,r2,r3,r4;
     Button click, click2;
     int i = 1, n = 0;
     public static int flag = 0, correct = 0, wrong = 0;
+    int count = 100000;
+
+    ArrayList<Result> results = new ArrayList<>();
+
+
+    private Timer timer;
     static final String question[] = {
             "Lớp truy cập mạng trong mô hình giao thức TCP/IP tương " +
                     "ứng với lớp/cụm các lớp nào trong mô hình OSI?",
@@ -77,6 +89,13 @@ public class De_So_1 extends AppCompatActivity {
         r4 = (RadioButton) findViewById(R.id.rd4);
         click = (Button) findViewById(R.id.click);
         click2 = (Button) findViewById(R.id.click2);
+        click2.setEnabled(false);
+        txtTimer = (TextView) findViewById(R.id.textView);
+        for(int j =0;j<10;j++){
+            results.add(new Result(j,"",false));
+        }
+        //radioGroup.setOnCheckedChangeListener();
+
 
         stt.setText("Câu Hỏi Thứ " + i);
         noiDung.setText(question[flag]);
@@ -84,112 +103,270 @@ public class De_So_1 extends AppCompatActivity {
         r2.setText(option[n+1]);
         r3.setText(option[n+2]);
         r4.setText(option[n+3]);
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+
+        }, 0, 1000);
+
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String a = bundle.getString("dethi");
 
+        r1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //setDefaultData();
+                nextPage();
+            }
+        });
+
+        r2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //setDefaultData();
+                nextPage();
+            }
+        });
+
+        r3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //setDefaultData();
+                nextPage();
+            }
+        });
+
+        r4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //setDefaultData();
+                nextPage();
+            }
+        });
+
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RadioButton uans = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
-                String ansText = uans.getText().toString();
+                //setDefaultData();
 
-                if(i<=10){
-                    if(i<10){
-                        if(answer[flag].equals(ansText)){
-                            correct++;
+                if(i>=9) {
+                    click.setEnabled(false);
+                }
+                    click2.setEnabled(true);
+                    n+=4;
+                    flag+=1;
+                    stt.setText("Câu Hỏi Thứ " + (i+=1));
+                    noiDung.setText(question[flag]);
+                    r1.setText(option[n]);
+                    r2.setText(option[n+1]);
+                    r3.setText(option[n+2]);
+                    r4.setText(option[n+3]);
+                    for(int j=0;j<results.size();j++) {
+                        if(results.get(j).getQuestionNum()==flag){
+                            if(results.get(j).getAnswer() == r1.getText().toString()){
+                                r1.setChecked(true);
+                            }else if(results.get(j).getAnswer() == r2.getText().toString()){
+                                r2.setChecked(true);
+                            }else if(results.get(j).getAnswer() == r3.getText().toString()){
+                                r3.setChecked(true);
+                            }else if(results.get(j).getAnswer() == r4.getText().toString()){
+                                r4.setChecked(true);
+                            }
                         }
-                        else
-                            wrong++;
-                        n+=4;
-                        flag+=1;
-                        stt.setText("Câu Hỏi Thứ " + (i+=1));
-                        noiDung.setText(question[flag]);
-                        r1.setText(option[n]);
-                        r2.setText(option[n+1]);
-                        r3.setText(option[n+2]);
-                        r4.setText(option[n+3]);
-                        if(radioGroup.getCheckedRadioButtonId()== -1){
-                            Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Log.d("test", "test" + radioGroup.getCheckedRadioButtonId());
-                        int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
-                        Log.e("radio id:",selectedRadioButtonId+"");
-                        RadioButton selectedRadioButton = findViewById(selectedRadioButtonId);
-                        String selectedValue = selectedRadioButton.getText().toString();
-                        Log.e("value:",selectedValue);
-
-                        DBHelper dbHelper = new DBHelper(De_So_1.this);
-                        boolean isInserted = dbHelper.insertDataChecked(selectedValue);
-                        if (isInserted) {
-                            Log.e("value inserted:",selectedValue);
-                            Toast.makeText(De_So_1.this, "Selected value inserted into resultchecked table", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(De_So_1.this, "Failed to insert selected value", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else if(i==10){
-                        if(answer[flag].equals(ansText)){
-                            correct++;
-                        }
-                        else
-                            wrong++;
-                        if(radioGroup.getCheckedRadioButtonId()== -1){
-                            Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Intent intent = new Intent(getApplicationContext(),Ket_Qua_Sau_Thi.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("correct", correct);
-                        bundle.putInt("wrong", wrong);
-                        bundle.putInt("marks",i);
-                        bundle.putString("de",a);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                        i = 1;
-                        n = 0;
-                        flag = 0;
-                        correct = 0;
-                        wrong = 0;
                     }
                 }
 
-            }
+
+
+
+
         });
 
         click2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //setDefaultData();
                 RadioButton uans = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
-                String ansText = uans.getText().toString();
 
-                if(i>=1){
-                    if(i>1){
-                        if(answer[flag].equals(ansText)){
-                            correct++;
+                if(i<=2) {
+                    click2.setEnabled(false);
+                }
+                    click.setEnabled(true);
+                    n-=4;
+                    flag-=1;
+                    stt.setText("Câu Hỏi Thứ " + (i-=1));
+                    noiDung.setText(question[flag]);
+                    r1.setText(option[n]);
+                    r2.setText(option[n+1]);
+                    r3.setText(option[n+2]);
+                    r4.setText(option[n+3]);
+                    for(int j=0;j<results.size();j++) {
+                        if(results.get(j).getQuestionNum()==flag){
+                            if(results.get(j).getAnswer() == r1.getText().toString()){
+                                r1.setChecked(true);
+                            }else if(results.get(j).getAnswer() == r2.getText().toString()){
+                                r2.setChecked(true);
+                            }else if(results.get(j).getAnswer() == r3.getText().toString()){
+                                r3.setChecked(true);
+                            }else if(results.get(j).getAnswer() == r4.getText().toString()){
+                                r4.setChecked(true);
+                            }
                         }
-                        else
-                            wrong++;
-                        n-=4;
-                        flag-=1;
-                        stt.setText("Câu Hỏi Thứ " + (i-=1));
-                        noiDung.setText(question[flag]);
-                        r1.setText(option[n]);
-                        r2.setText(option[n+1]);
-                        r3.setText(option[n+2]);
-                        r4.setText(option[n+3]);
-                        if(radioGroup.getCheckedRadioButtonId()== -1){
-                            Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Log.d("test", "test" + radioGroup.getCheckedRadioButtonId());
                     }
                 }
 
-            }
-        });
 
+
+        });
+    }
+
+    private void TimerMethod() {
+        //This method is called directly by the timer
+        //and runs in the same thread as the timer.
+
+        //We call the method that will work with the UI
+        //through the runOnUiThread method.
+        this.runOnUiThread(Timer_Tick);
+    }
+
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+
+            //This method runs in the same thread as the UI.
+
+            //Do something to the UI thread here
+
+            if (count <= 0) {
+                timer.cancel();
+                RadioButton uans = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+                String ansText = uans.getText().toString();
+                if(answer[flag].equals(ansText)){
+                    correct++;
+                }
+                else
+                    wrong++;
+                if(radioGroup.getCheckedRadioButtonId()== -1){
+                    Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(getApplicationContext(),Ket_Qua_Sau_Thi.class);
+                Bundle bundle = new Bundle();
+                String a = bundle.getString("dethi");
+                bundle.putInt("correct", correct);
+                bundle.putInt("wrong", wrong);
+                bundle.putInt("marks",i);
+                bundle.putString("de",a);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                i = 1;
+                n = 0;
+                flag = 0;
+                correct = 0;
+                wrong = 0;
+            }
+
+            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(count),
+                    TimeUnit.MILLISECONDS.toMinutes(count) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(count)),
+                    TimeUnit.MILLISECONDS.toSeconds(count) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(count)));
+            txtTimer.setText(hms);
+            count -= 1000;
+        }
+    };
+    private void nextPage() {
+        RadioButton uans = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+        String ansText = uans.getText().toString();
+        DBHelper dbHelper = new DBHelper(De_So_1.this);
+        setDefaultData();
+        if(flag==0){
+            click2.setEnabled(true);
+        }
+        if(i<=10){
+            if(i<10){
+                for(int j=0;j<results.size();j++){
+                    if(results.get(j).getQuestionNum()==flag){
+                        results.get(j).setAnswer(ansText);
+                        if(answer[flag].equals(ansText)){
+                            results.get(j).setCheck(true);
+                        }
+                        else{
+                            results.get(j).setCheck(false);
+                        }
+                    }
+                }
+                n+=4;
+                flag+=1;
+                stt.setText("Câu Hỏi Thứ " + (i+=1));
+                noiDung.setText(question[flag]);
+                r1.setText(option[n]);
+                r2.setText(option[n+1]);
+                r3.setText(option[n+2]);
+                r4.setText(option[n+3]);
+                for(int j=0;j<results.size();j++) {
+                    if(results.get(j).getQuestionNum()==flag){
+                        if(results.get(j).getAnswer() == r1.getText().toString()){
+                            r1.setChecked(true);
+                        }else if(results.get(j).getAnswer() == r2.getText().toString()){
+                            r2.setChecked(true);
+                        }else if(results.get(j).getAnswer() == r3.getText().toString()){
+                            r3.setChecked(true);
+                        }else if(results.get(j).getAnswer() == r4.getText().toString()){
+                            r4.setChecked(true);
+                        }
+                    }
+                }
+                if(radioGroup.getCheckedRadioButtonId()== -1){
+                    Toast.makeText(De_So_1.this, "Please select one choice !", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            }
+            else if(i==10){
+                for(int j=0;j<results.size();j++){
+                    if(results.get(j).getQuestionNum()==flag){
+                        results.get(j).setAnswer(ansText);
+                        if(answer[flag].equals(ansText)){
+                            results.get(j).setCheck(true);
+                        }
+                        else{
+                            results.get(j).setCheck(false);
+                        }
+                    }
+                }
+                Intent intent = new Intent(getApplicationContext(),Ket_Qua_Sau_Thi.class);
+                Bundle bundle = new Bundle();
+                String a = bundle.getString("dethi");
+                for(int j=0;j<results.size();j++){
+                    if(results.get(j).isCheck()==true){
+                        correct+=1;
+                    }else{
+                        wrong+=1;
+                    }
+                    dbHelper.insertDataChecked(results.get(j).getAnswer(),results.get(j).getQuestionNum()+"");
+                }
+                bundle.putInt("correct", correct);
+                bundle.putInt("wrong", wrong);
+                bundle.putInt("marks",i);
+                bundle.putString("de",a);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                i = 1;
+                n = 0;
+                flag = 0;
+                correct = 0;
+                wrong = 0;
+            }
+        }
+    }
+
+    private void setDefaultData() {
+        r1.setChecked(false);
+        r2.setChecked(false);
+        r3.setChecked(false);
+        r4.setChecked(false);
     }
 }

@@ -38,7 +38,7 @@ public class Ket_Qua_Sau_Thi extends AppCompatActivity {
         int marks = bundle.getInt("marks");
         caudung.setText("Số Câu Đúng : " + correct);
         causai.setText("Số Câu Sai : " + wrong);
-        tongcau.setText("Tổng Điểm : " + marks);
+        tongcau.setText("Tổng Điểm : " + correct+"/"+marks);
 
         a = bundle.getString("de");
 
